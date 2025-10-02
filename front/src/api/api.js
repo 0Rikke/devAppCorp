@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = axios.create({
+const apiR = axios.create({
   baseURL: "http://localhost:3000",
   timeout: 10000,
   headers: {
@@ -8,7 +8,7 @@ const api = axios.create({
   },
 });
 
-api.interceptors.request.use(
+ apiR.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
 
@@ -23,7 +23,7 @@ api.interceptors.request.use(
   }
 );
 
-api.interceptors.response.use(
+apiR.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -37,4 +37,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api;
+export default apiR;

@@ -15,6 +15,7 @@ class AuthController {
   static async login(req, res) {
     try {
       const result = await UserService.loginUser(req.body);
+
       return res.status(200).json(result);
     } catch (error) {
       const status =

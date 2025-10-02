@@ -1,44 +1,39 @@
 // src/services/userService.js
 
-import bcrypt from "bcryptjs"; // Biblioteca para criptografia de senhas
-import jwt from "jsonwebtoken"; // Biblioteca para geração de tokens JWT
-import UserModel from "../models/users.js"; // Model responsável pelo acesso à tabela de usuários
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import Users from "../models/Users.js";
 
-// Classe que contém os serviços relacionados ao usuário, como registro e login
 class UserService {
-  // Método para registrar um novo usuário
   static async registerUser(user) {
     const { email, password, role } = user;
 
-    // Verifica se o e-mail já está cadastrado
-    const existing = await UserModel.findByEmail(email);
+    const existing = await  Users.first({ email });
+
     if (existing) {
       throw new Error("Usuário já existe");
     }
 
-    // Criptografa a senha antes de salvar no banco
     const hashed = await bcrypt.hash(password, 10);
-
-    // Substitui a senha original pela criptografada
     user.password = hashed;
 
-    // Cria o novo usuário e retorna seu ID
-    const id = await UserModel.create(user);
+    const id = await Users.create(user);
 
-    // Retorna os dados de sucesso
     return { message: "Usuário registrado com sucesso", id };
   }
 
   // Método para autenticar o usuário e gerar token JWT
-  static async loginUser({ email, password }) {
-    // Busca o usuário pelo e-mail
-    const user = await UserModel.findByEmail(email);
+  static async loginUser({ email, password }) { 
+    const user = await Users.first({email});
+
     if (!user) {
       throw new Error("Usuário não encontrado");
     }
 
+    
     // Verifica se a senha fornecida é válida
     const valid = await bcrypt.compare(password, user.password);
+      
     if (!valid) {
       throw new Error("Senha inválida");
     }

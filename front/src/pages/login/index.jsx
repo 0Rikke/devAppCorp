@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Field from "../../components/Fields";
-import api from "../../api/api";
 import toast from "react-hot-toast";
+import apiR from "../../api/api"
 import { useNavigate } from "react-router-dom";
 const fields = [
   { name: "email", label: "Login", type: "text" },
@@ -10,9 +10,9 @@ const fields = [
 const Login = () => {
   const [state, setState] = useState({});
   const navigate = useNavigate();
+  
   const handleSubmit = async () => {
-    console.log(state);
-    const response = await api
+    const response = await apiR
       .post("/auth/login", state)
       .catch((err) => toast.error(err.response.data.message));
 

@@ -1,4 +1,11 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -8,12 +15,15 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user] = useState();
 
+  const logout = useCallback(() => {
+    localStorage.clear("token");
+    navigate("/login");
+  }, [navigate]);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("token: ", token);
 
     if (!token) {
-      console.log("cade o navigate");
       navigate("/login");
     }
   }, [navigate]);
@@ -21,11 +31,20 @@ const AuthProvider = ({ children }) => {
   const value = useMemo(
     () => ({
       user,
+      logout,
     }),
-    [user]
+    [logout, user]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const useAuthContext = () => {
+  const context = useContext(AuthContext);
+
+  return context;
+
+}

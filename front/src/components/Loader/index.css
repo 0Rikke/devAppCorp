@@ -1,0 +1,36 @@
+/* Container que cobre a tela toda */
+.loader-container {
+    position: fixed; /* Fixa na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+    display: flex; /* Para centralizar */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    z-index: 9999; /* Garante que fique acima de tudo */
+    transition: opacity 0.5s ease-out; /* Transição suave para sumir */
+}
+
+/* O Spinner (animação de carregamento) */
+.loader {
+    border: 8px solid #f3f3f3; /* Cinza claro para o círculo externo */
+    border-top: 8px solid #3498db; /* Azul para a parte giratória */
+    border-radius: 50%; /* Faz um círculo */
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite; /* Aplica a animação 'spin' */
+}
+
+/* Define a animação de rotação */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Classe para sumir o loader (usada no JS) */
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
