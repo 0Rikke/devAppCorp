@@ -48,7 +48,7 @@ class EventsController extends Controller {
       });
     }
   }
-  
+
   static async delete(req, res) {
     try {
       const result = await EventService.deleteEvent(req.params.id);
@@ -56,7 +56,7 @@ class EventsController extends Controller {
       return super.success(res, result);
     } catch (error) {
       return super.error(res, {
-        message: "Erro ao acessar a rota pública",
+        message: "Erro ao deletar",
         error: error.message,
       });
     }

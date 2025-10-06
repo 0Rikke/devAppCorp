@@ -7,6 +7,7 @@ import DashBoard from "../pages/dashboard/index";
 import DashBoardForm from "../pages/dashboard/form";
 import Register from "../pages/login/register";
 import NavBar from "../components/Nav";
+import Volunteers from "../pages/volunteers";
 
 const IndexRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const IndexRoutes = () => {
           <Route path="/login" Component={Login} />
           <Route path="/register" Component={Register} />
           <Route path="/dashboard" Component={DashBoard} />
+          <Route path="/volunteers" Component={Volunteers} />
           <Route path="/events/:id" Component={DashBoardForm} />
         </Routes>
       </AuthProvider>

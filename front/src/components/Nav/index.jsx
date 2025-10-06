@@ -7,14 +7,18 @@ function NavBar() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { user } = useAuthContext();
+  const authContet = useAuthContext();
+
+  const user =
+    typeof authContet.user === "string"
+      ? JSON.parse(authContet.user)
+      : authContet.users;
 
   const showNav = useMemo(
     () => !["/login", "/register"].includes(location.pathname),
     [location.pathname]
   );
 
-  console.log(user);
   return showNav ? (
     <div className="flex-between margin-nav">
       <div className="flex-center" onClick={() => navigate("/dashboard")}>

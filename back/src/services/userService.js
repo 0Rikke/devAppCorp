@@ -8,7 +8,7 @@ class UserService {
   static async registerUser(user) {
     const { email, password, role } = user;
 
-    const existing = await  Users.first({ email });
+    const existing = await Users.first({ email });
 
     if (existing) {
       throw new Error("Usuário já existe");
@@ -23,17 +23,16 @@ class UserService {
   }
 
   // Método para autenticar o usuário e gerar token JWT
-  static async loginUser({ email, password }) { 
-    const user = await Users.first({email});
+  static async loginUser({ email, password }) {
+    const user = await Users.first({ email });
 
     if (!user) {
       throw new Error("Usuário não encontrado");
     }
 
-    
     // Verifica se a senha fornecida é válida
     const valid = await bcrypt.compare(password, user.password);
-      
+
     if (!valid) {
       throw new Error("Senha inválida");
     }
@@ -47,6 +46,29 @@ class UserService {
 
     // Retorna o token e o usuário para o controller
     return { token, user: { email: user.email, role: user.role } };
+  }
+
+  static async getUser(id) {
+    const user = await Users.find(id);
+
+    if (!user) {
+      throw new Error("Usuário não encontrado.");
+    }
+
+    return { message: "Usuário encontrado.", user };
+  }
+
+  static async updateUser(values, id) {
+    // { name: "aqui" }
+    const updated = await Users.update(values, { id });
+
+    return { message: "Usuário atualizado com suceesso", updated };
+  }
+
+  static async deleteUser(id) {
+    const updated = await Users.delete({ id });
+
+    return { message: "Usuário deletado com suceesso", updated };
   }
 }
 
