@@ -1,0 +1,27 @@
+.login-container {
+  height: 100%;
+}
+
+.split-screen {
+  display: flex;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fields-area > button {
+  width: 100%;
+}
+
+.split-screen {
+  display: grid;
+  grid-template-columns: 30vw 60vw;
+  margin: 5rem;
+}
+
+.title-events {
+  margin-bottom: 5rem;
+}

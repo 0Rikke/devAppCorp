@@ -6,14 +6,16 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [user] = useState();
+  const location = useLocation();
+
+  const [user, setUser] = useState();
 
   const logout = useCallback(() => {
     localStorage.clear("token");
@@ -22,15 +24,20 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
-    if (!token) {
+    if (!token && location.pathname != "/register") {
       navigate("/login");
+
+      return
     }
-  }, [navigate]);
+
+    setUser(localStorage.getItem("user"))
+
+  }, [location.pathname, navigate]);
 
   const value = useMemo(
     () => ({
       user,
+      setUser,
       logout,
     }),
     [logout, user]
@@ -46,5 +53,4 @@ export const useAuthContext = () => {
   const context = useContext(AuthContext);
 
   return context;
-
-}
+};

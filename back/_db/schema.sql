@@ -10,7 +10,7 @@ CREATE TABLE
     IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         email VARCHAR(255) NOT NULL UNIQUE,
-        nome VARCHAR(255) NOT NULL 
+        nome VARCHAR(255) NOT NULL, 
         password VARCHAR(255) NOT NULL,
         role VARCHAR(50) NOT NULL DEFAULT 'user',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -36,16 +36,27 @@ CREATE TABLE
     );
 
 -- Insere dois tipos de usuários
-INSERT INTO
-    users (email, password, role)
+INSERT INTO users (email, nome, password, role)
 VALUES
     (
         'usuario@ifrs.edu.br',
+        'Usuario',
         '$2b$10$382cEJJYi5YxSBNvWmufHeoPHX3dqIB9NP2R2XWzt/w.DnC0gmCr2',
         'user'
     ),
     (
         'admin@ifrs.edu.br',
+        'Adiministro',
         '$2b$10$/JLXJ62EBlk1bNq0xmpvMuTLDJb6AWmZUs74lgEJb4Z.J9.3kFJM.',
         'admin'
     );
+
+-- Insere 6 eventos de exemplo
+INSERT INTO events (name, date, description)
+VALUES
+    ('Evento de Tecnologia', '2025-10-10', 'Encontro sobre inovações tecnológicas.'),
+    ('Feira de Ciências', '2025-11-05', 'Exposição de projetos científicos dos alunos.'),
+    ('Semana Acadêmica', '2025-10-20', 'Palestras e workshops para estudantes.'),
+    ('Hackathon IFRS', '2025-12-01', 'Competição de programação e soluções criativas.'),
+    ('Mostra Cultural', '2025-11-15', 'Apresentações artísticas e culturais.'),
+    ('Encontro de Voluntários', '2025-12-10', 'Reunião para organização de ações sociais.');

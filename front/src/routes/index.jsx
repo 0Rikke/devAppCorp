@@ -3,17 +3,23 @@ import Home from "../pages/home";
 import Login from "../pages/login";
 import AuthProvider from "../context/AuthContext";
 import { Toaster } from "react-hot-toast";
-import DashBoard from "../pages/dashboard";
+import DashBoard from "../pages/dashboard/index";
+import DashBoardForm from "../pages/dashboard/form";
+import Register from "../pages/login/register";
+import NavBar from "../components/Nav";
 
 const IndexRoutes = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
         <Toaster position="top-right" reverseOrder={false} />
+        <NavBar />
         <Routes>
           <Route path="/" Component={Home} />
           <Route path="/login" Component={Login} />
+          <Route path="/register" Component={Register} />
           <Route path="/dashboard" Component={DashBoard} />
+          <Route path="/events/:id" Component={DashBoardForm} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

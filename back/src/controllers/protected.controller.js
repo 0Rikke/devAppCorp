@@ -1,13 +1,20 @@
 // src/controllers/protectedController.js
 
-class ProtectedController {
-  static dashboard(req, res) {
+import UserEvents from "../models/UserEvents.js";
+import EventService from "../services/eventService.js";
+import Controller from "./base.controller.js";
+
+class ProtectedController extends Controller {
+  static async dashboard(req, res) {
     try {
-      return res.status(200).json({
+      const events = await EventService.listEvents();
+
+      return super.success(res, {
+        data: { events },
         message: `Bem-vindo ao painel, ${req.user.email}`,
       });
     } catch (error) {
-      return res.status(500).json({
+      return super.error(res, {
         message: "Erro ao acessar o painel",
         error: error.message,
       });
@@ -16,11 +23,24 @@ class ProtectedController {
 
   static adminOnly(req, res) {
     try {
-      return res.status(200).json({
+      return super.success(res, {
         message: `Bem-vindo à área admin, ${req.user.email}`,
       });
     } catch (error) {
-      return res.status(500).json({
+      return this.error(res, {
+        message: "Erro ao acessar a área admin",
+        error: error.message,
+      });
+    }
+  }
+
+  static async volunteer(req, res) {
+    try {
+      const result = await EventService.volunteer(req)
+
+      return super.success(res, result);
+    } catch (error) {
+      return super.error(res, {
         message: "Erro ao acessar a área admin",
         error: error.message,
       });

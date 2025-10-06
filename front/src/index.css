@@ -1,0 +1,46 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.margin-5 {
+  margin: 5px;
+}
+
+.margin-nav {
+  margin: 1rem;
+}
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.full-heigth {
+  height: 100%;
+}

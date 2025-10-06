@@ -1,0 +1,17 @@
+.event-container {
+  display: flex;
+  overflow-x: scroll;
+  min-height: 50vh;
+  gap: 1rem;
+}
+
+.events {
+  min-width: 30rem;
+  border: black solid 1px;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-image {
+  flex-grow: 1;
+}

@@ -1,8 +1,8 @@
 // src/models/user.js
 import Model from "./Model.js";
 
-class Events extends Model {
-  static tableName = "events";
+class UserEvents extends Model {
+  static tableName = "users_events";
 
   static async first(cond) {
     const rows = await this.find(cond);
@@ -12,4 +12,4 @@ class Events extends Model {
 }
 
 // Exporta a classe Users para ser usada nos services
-export default Events;
+export default UserEvents;
