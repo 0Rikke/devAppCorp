@@ -45,7 +45,7 @@ class UserService {
     );
 
     // Retorna o token e o usuário para o controller
-    return { token, user: { email: user.email, role: user.role } };
+    return { token, user: { id: user.id, email: user.email, role: user.role } };
   }
 
   static async getUser(id) {
@@ -55,7 +55,10 @@ class UserService {
       throw new Error("Usuário não encontrado.");
     }
 
-    return { message: "Usuário encontrado.", user };
+    return {
+      message: "Usuário encontrado.",
+      data: id ? user?.[0] ?? null : user,
+    };
   }
 
   static async updateUser(values, id) {

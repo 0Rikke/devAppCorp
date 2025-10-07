@@ -1,6 +1,8 @@
 import { useState } from "react";
 import useInitialData from "../../hooks/useInitialData";
 import Loader from "../../components/Loader";
+import List from "../../components/List";
+import { fieldsRegister } from "../../consts";
 
 function Volunteers() {
   const [initialLoading, setInitialLoading] = useState(true);
@@ -14,7 +16,19 @@ function Volunteers() {
 
   return (
     <div className="dashboard-container">
-      {initialLoading ? <Loader /> : <h2>Voluntarios</h2>}
+      {initialLoading ? (
+        <Loader />
+      ) : (
+        <div>
+          <h2>Voluntarios</h2>
+          <List
+            route="volunteers"
+            state={state}
+            setState={setState}
+            colunas={fieldsRegister}
+          />
+        </div>
+      )}
     </div>
   );
 }

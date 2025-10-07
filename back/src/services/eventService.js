@@ -15,7 +15,7 @@ class EventService {
     const user = await Users.first({ email: req.user.email });
 
     if (!user) {
-      throw new Error("Usuario não encontrado");
+      return { messagee: "Usuario não encontrado", status: "error" };
     }
 
     const isVolunteer = await UserEvents.first({
@@ -24,7 +24,7 @@ class EventService {
     });
 
     if (isVolunteer) {
-      throw new Error("O usuário já é voluntario.");
+      return { message: "O usuário já é voluntario.", status: "error" };
     }
 
     const id = await UserEvents.create({

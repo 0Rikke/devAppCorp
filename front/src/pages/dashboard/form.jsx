@@ -20,8 +20,7 @@ function DashboardForm() {
     serverData,
   });
 
-  // console.log(state);
-
+  
   return (
     <div className="dashboard-container">
       {initialLoading ? (
@@ -29,9 +28,9 @@ function DashboardForm() {
       ) : (
         <div>
           <h2>Dashboard</h2>
-          <h2>Dashboard</h2>
           {fieldsEvents.map(({ type, label, name }, index) => (
             <Field
+              id={id}
               key={index}
               type={type}
               label={label}
@@ -39,7 +38,7 @@ function DashboardForm() {
               value={state?.[name]}
               setState={setState}
               serverData={serverData}
-              id={id}
+              route="events"
             />
           ))}
         </div>

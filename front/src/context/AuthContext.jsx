@@ -27,11 +27,10 @@ const AuthProvider = ({ children }) => {
     if (!token && location.pathname != "/register") {
       navigate("/login");
 
-      return
+      return;
     }
 
-    setUser(localStorage.getItem("user"))
-
+    setUser(JSON.parse(localStorage.getItem("user")));
   }, [location.pathname, navigate]);
 
   const value = useMemo(

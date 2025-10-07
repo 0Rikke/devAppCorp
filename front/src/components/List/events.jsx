@@ -6,9 +6,10 @@ import "./index.css";
 import { useAuthContext } from "../../context/AuthContext";
 
 const Item = memo(({ event }) => {
+  const location = useLocation();
   const eventCtx = useEventListContext();
   const { user } = useAuthContext();
-  const location = useLocation();
+
 
   const isLogin = useMemo(
     () => ["/login", "/register"].includes(location.pathname),

@@ -17,7 +17,12 @@ const DashBoard = () => {
 
   const value = useMemo(
     () => ({
-      onClick: () => {},
+      onDelete: (id) => {
+        setState((prev) => ({
+          ...prev,
+          events: prev.events.filter((item) => item.id !== id),
+        }));
+      },
     }),
     []
   );

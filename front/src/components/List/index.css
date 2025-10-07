@@ -15,3 +15,24 @@
 .event-image {
   flex-grow: 1;
 }
+
+table {
+  border-spacing: 0;
+  border: 1px solid black;
+  width: 100%;
+}
+
+thead {
+  color: white;
+  background-color: black;
+}
+
+td {
+  padding: 1rem;
+}
+
+td,
+th {
+  border: 1px solid black;
+  text-align: center;
+}

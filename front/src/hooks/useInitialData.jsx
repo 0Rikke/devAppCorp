@@ -8,14 +8,12 @@ function useInitialData({
   setInitialLoading,
   setState,
   avoidRequest = false,
-  serverData = {},
+  serverData = { current: {} },
 }) {
   const { logout } = useAuthContext();
 
   const handleError = useCallback(
     (err) => {
-      console.log(err);
-
       if ([401, 403].includes(err?.response?.status)) {
         logout();
       }
@@ -28,7 +26,7 @@ function useInitialData({
   const setInitialData = useCallback(
     (data) => {
       setState(data.data);
-      serverData.current = data.data; 
+      serverData.current = data.data;
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [setState]

@@ -27,9 +27,9 @@ function Register() {
   };
 
   return (
-    <div className="full-heigth form-register ">
+    <div className="full-heigth form-register">
       <h1>Registro de usuario</h1>
-      <div className="fields-area ">
+      <div className="fields-area">
         {fieldsRegister.map(({ type, label, name }, index) => (
           <Field
             key={index}

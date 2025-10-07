@@ -1,18 +1,17 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
-import { MdCalendarMonth, MdPeople, MdVolunteerActivism } from "react-icons/md";
+import {
+  MdCalendarMonth,
+  MdLogout,
+  MdPeople,
+  MdVolunteerActivism,
+} from "react-icons/md";
 import { useMemo } from "react";
 
 function NavBar() {
-  const location = useLocation();
   const navigate = useNavigate();
-
-  const authContet = useAuthContext();
-
-  const user =
-    typeof authContet.user === "string"
-      ? JSON.parse(authContet.user)
-      : authContet.users;
+  const location = useLocation();
+  const { user, logout } = useAuthContext();
 
   const showNav = useMemo(
     () => !["/login", "/register"].includes(location.pathname),
@@ -33,7 +32,18 @@ function NavBar() {
         </div>
       )}
 
-      <MdPeople size={40} color="black" onClick={() => navigate("/user")} />
+      <div className="flex-between gap">
+        <MdPeople
+          size={40}
+          color="black"
+          onClick={() =>
+            navigate(`/volunteers/${user.id}`, {
+              state: { title: "Registro do Usuário" },
+            })
+          }
+        />
+        <MdLogout size={40} color="black" onClick={() => logout()} />
+      </div>
     </div>
   ) : null;
 }

@@ -33,6 +33,9 @@ body {
   margin: 5px;
 }
 
+.gap {
+  gap: 1rem;
+}
 .margin-nav {
   margin: 1rem;
 }

@@ -2,28 +2,36 @@ import { createContext, useCallback, useContext, useMemo } from "react";
 import apiR from "../api/api";
 import { useAuthContext } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const EventListContext = createContext();
 
 const EventListProvider = ({ children, values }) => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
+  const { onDelete } = values;
 
   const handleClick = useCallback(
     async (event) => {
-      const usr = JSON.parse(user ?? {});
-
-      if (!Object.keys(usr ?? {})?.length || !event?.id) return;
-
-      console.log(event, usr);
+      if (!Object.keys(user ?? {})?.length || !event?.id) return;
 
       const response = await apiR
         .post("/protected/dashboard/volunteer", {
           event: event,
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          if (err?.response?.data?.message) {
+            toast.error(err.response.data.message);
+          }
+        });
 
-      console.log(response);
+      if (response?.data?.message) {
+        if (response.data.status === "success") {
+          toast.success(response.data.message);
+        } else {
+          toast.error(response.data.message);
+        }
+      }
     },
     [user]
   );
@@ -34,9 +42,20 @@ const EventListProvider = ({ children, values }) => {
     },
     [navigate]
   );
-  const deleteEvent = useCallback((event) => {
-    apiR.delete(`/events/${event.id}`);
-  }, []);
+  const deleteEvent = useCallback(
+    async (event) => {
+      const response = await apiR
+        .delete(`/protected/events/${event.id}`)
+        .catch((err) => console.log(err));
+
+      if (response.data.message) {
+        toast.success(response.data.message);
+      }
+
+      onDelete?.(event.id);
+    },
+    [onDelete]
+  );
 
   const value = useMemo(
     () => ({
