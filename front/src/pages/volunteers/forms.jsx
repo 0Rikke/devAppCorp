@@ -31,7 +31,7 @@ function VolunteersForm() {
         {location?.state?.title ? location.state.title : "Registro do voluntário"}
       </h1>
       <div className="fields-area">
-        {fieldsRegister.map(({ type, label, name }, index) => (
+        {fieldsRegister.map(({ type, label, name, disable }, index) => (
           <Field
             id={id}
             key={index}
@@ -42,6 +42,7 @@ function VolunteersForm() {
             setState={setState}
             route="volunteers"
             serverData={serverData}
+            disable={disable}
           />
         ))}
       </div>

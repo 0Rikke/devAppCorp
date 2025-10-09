@@ -25,12 +25,10 @@ function NavBar() {
         Eventos
       </div>
 
-      {user && user.role === "admin" && (
-        <div className="flex-center" onClick={() => navigate("/volunteers")}>
-          <MdVolunteerActivism size={40} color="black" />
-          Volutarios
-        </div>
-      )}
+      <div className="flex-center" onClick={() => navigate("/volunteers")}>
+        <MdVolunteerActivism size={40} color="black" />
+        Volutarios
+      </div>
 
       <div className="flex-between gap">
         <MdPeople

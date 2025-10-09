@@ -6,7 +6,7 @@ export const fieldsLogin = [
 export const fieldsRegister = [
   { name: "email", label: "Email", type: "text" },
   { name: "nome", label: "Nome", type: "text" },
-  { name: "password", label: "Senha", type: "password" },
+  { name: "password", label: "Senha", type: "password", disable: true },
 ];
 
 export const fieldsEvents = [

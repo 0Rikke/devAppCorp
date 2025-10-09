@@ -23,7 +23,7 @@ const IndexRoutes = () => {
           <Route path="/dashboard" Component={DashBoard} />
           <Route path="/volunteers" Component={Volunteers} />
           <Route path="/volunteers/:id" Component={VolunteersForm} />
-          <Route path="/events/:id" Component={DashBoardForm} />
+          <Route path="/events/:id?" Component={DashBoardForm} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

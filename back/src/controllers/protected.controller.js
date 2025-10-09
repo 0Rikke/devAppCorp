@@ -4,7 +4,16 @@ import UserEvents from "../models/UserEvents.js";
 import EventService from "../services/eventService.js";
 import Controller from "./base.controller.js";
 
+/**
+ * Controller para rotas protegidas (requerem autenticação).
+ * @extends Controller
+ */
 class ProtectedController extends Controller {
+  /**
+   * Painel principal do usuário autenticado.
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   static async dashboard(req, res) {
     try {
       const events = await EventService.listEvents();
@@ -21,6 +30,11 @@ class ProtectedController extends Controller {
     }
   }
 
+  /**
+   * Exemplo de rota acessível apenas por administradores.
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   static adminOnly(req, res) {
     try {
       return super.success(res, {
@@ -34,14 +48,19 @@ class ProtectedController extends Controller {
     }
   }
 
+  /**
+   * Marca o usuário como voluntário para um evento.
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   static async volunteer(req, res) {
     try {
-      const result = await EventService.volunteer(req)
+      const result = await EventService.volunteer(req);
 
       return super.success(res, result);
     } catch (error) {
       return super.error(res, {
-        message: "Erro ao acessar a área admin",
+        message: "Erro ao registrar voluntário",
         error: error.message,
       });
     }

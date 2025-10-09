@@ -14,6 +14,8 @@ function useInitialData({
 
   const handleError = useCallback(
     (err) => {
+      console.log(err);
+      
       if ([401, 403].includes(err?.response?.status)) {
         logout();
       }
@@ -33,8 +35,8 @@ function useInitialData({
   );
 
   const getData = useCallback(async () => {
-    setInitialLoading(true);
     if (avoidRequest) return;
+    setInitialLoading(true);
 
     const newRoute = id ? route + `/${id}` : route;
 

@@ -4,7 +4,15 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Users from "../models/Users.js";
 
+/**
+ * Serviços relacionados a usuários (registro, login, CRUD).
+ */
 class UserService {
+  /**
+   * Registra um novo usuário.
+   * @param {object} user - Objeto com { email, password, role }
+   * @returns {Promise<object>} Resultado com ID do usuário criado.
+   */
   static async registerUser(user) {
     const { email, password, role } = user;
 
@@ -22,7 +30,11 @@ class UserService {
     return { message: "Usuário registrado com sucesso", id };
   }
 
-  // Método para autenticar o usuário e gerar token JWT
+  /**
+   * Auth: valida credenciais e retorna token JWT.
+   * @param {object} param0 - { email, password }
+   * @returns {Promise<object>} Token e dados do usuário.
+   */
   static async loginUser({ email, password }) {
     const user = await Users.first({ email });
 
@@ -48,6 +60,11 @@ class UserService {
     return { token, user: { id: user.id, email: user.email, role: user.role } };
   }
 
+  /**
+   * Busca usuários. Se `id` for fornecido, retorna o usuário correspondente.
+   * @param {object|number|string} id
+   * @returns {Promise<object>} Resultado com dados.
+   */
   static async getUser(id) {
     const user = await Users.find(id);
 
@@ -61,6 +78,12 @@ class UserService {
     };
   }
 
+  /**
+   * Atualiza um usuário.
+   * @param {object} values - Campos a atualizar.
+   * @param {number|string} id - ID do usuário.
+   * @returns {Promise<object>} Resultado da atualização.
+   */
   static async updateUser(values, id) {
     // { name: "aqui" }
     const updated = await Users.update(values, { id });
@@ -68,6 +91,11 @@ class UserService {
     return { message: "Usuário atualizado com suceesso", updated };
   }
 
+  /**
+   * Deleta um usuário.
+   * @param {number|string} id - ID do usuário.
+   * @returns {Promise<object>} Resultado da exclusão.
+   */
   static async deleteUser(id) {
     const updated = await Users.delete({ id });
 

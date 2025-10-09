@@ -57,3 +57,43 @@ Authorization: Bearer {{ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vdm
 # "admin")
 GET {{baseURL}}/protected/admin
 Authorization: Bearer {{ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGlmcnMuZWR1LmJyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MTgzMTIyLCJleHAiOjE3NTkxODY3MjJ9.4bGLZfj1OwYsQZaRcD_0m8UGYUPC2XQMameHjbt4xT0}}
+
+### Helpers e exemplos adicionais (apêndice)
+# Estes blocos são apenas exemplos auxiliares — não alteram as requisições acima.
+
+@note = "Após executar um login, copie o campo 'token' do JSON de resposta e cole abaixo nas variáveis userToken/adminToken."
+
+@userToken = <cole_aqui_o_token_do_usuario>
+@adminToken = <cole_aqui_o_token_do_admin>
+
+### Example: criar evento (admin) — útil se quiser testar manualmente
+POST {{baseURL}}/protected/events
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+	"name": "Evento de Teste - Apêndice",
+	"description": "Breve descrição",
+	"date": "2025-10-20",
+	"location": "IFRS"
+}
+
+### Example: cadastrar voluntário (admin)
+POST {{baseURL}}/protected/volunteers
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+	"email": "voluntario.teste@ifrs.edu.br",
+	"password": "senha123",
+	"role": "user"
+}
+
+### Example: voluntariar-se em evento (usuário autenticado)
+POST {{baseURL}}/protected/dashboard/volunteer
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+	"event": { "id": 1 }
+}

@@ -13,6 +13,7 @@ const Field = memo(
     setState,
     id,
     route,
+    disable
   }) => {
     const handleChange = useCallback(
       (e) => {
@@ -25,7 +26,7 @@ const Field = memo(
     );
 
     const val = useMemo(() => {
-      if (type === "date") {
+      if (type === "date" && value) {
         return value.split("T")[0];
       }
       return value;
@@ -36,8 +37,12 @@ const Field = memo(
 
       const response = await apiR
         .post(`/protected/${route}/${id}`, { [name]: value })
-        .catch((err) => console.log(err));
-
+        .catch((err) => {
+          if (err.response.data.message) {
+            toast.error(err.response.data.message)
+          }
+        });
+        
       if (response.data.status === "success") {
         toast.success(response.data.message);
         serverData.current[name] = value;
@@ -56,6 +61,7 @@ const Field = memo(
           name={name}
           onChange={handleChange}
           onBlur={handleUpdate}
+          disabled={disable}
         />
       </div>
     );

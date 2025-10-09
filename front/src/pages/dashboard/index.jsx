@@ -4,10 +4,14 @@ import useInitialData from "../../hooks/useInitialData";
 import Loader from "../../components/Loader";
 import EventListProvider from "../../context/EventListContext";
 import "./index.css";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 
 const DashBoard = () => {
   const [initialLoading, setInitialLoading] = useState(true);
   const [state, setState] = useState();
+  const navigate = useNavigate();
+  const { user } = useAuthContext();
 
   useInitialData({
     route: "/protected/dashboard",
@@ -27,6 +31,8 @@ const DashBoard = () => {
     []
   );
 
+  const createEvent = () => navigate("/events");
+
   return (
     <div className="dashboard-container">
       {initialLoading ? (
@@ -35,6 +41,11 @@ const DashBoard = () => {
         <EventListProvider values={value}>
           <h2>Dashboard</h2>
           <EventLists events={state.events} />
+          {user.role === "admin" && (
+            <button className="add-event" onClick={createEvent}>
+              Adicionar Evento
+            </button>
+          )}
         </EventListProvider>
       )}
     </div>

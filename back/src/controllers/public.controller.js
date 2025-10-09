@@ -2,7 +2,16 @@
 
 import Controller from "./base.controller.js";
 
+/**
+ * Controller para rotas públicas simples.
+ * @extends Controller
+ */
 class PublicController extends Controller {
+  /**
+   * Rota pública de boas-vindas.
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
   static home(req, res) {
     try {
       return res.status(200).send("Bem-vindo à API pública!");
