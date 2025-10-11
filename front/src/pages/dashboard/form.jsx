@@ -63,7 +63,7 @@ function DashboardForm() {
             />
           ))}
 
-          <button onClick={handleSubmit}>Criar Evento</button>
+          {!id && <button onClick={handleSubmit}>Criar Evento</button>}
         </div>
       )}
     </div>

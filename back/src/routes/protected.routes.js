@@ -14,7 +14,7 @@ router.post("/dashboard/volunteer", authenticateToken, ProtectedController.volun
 
 router.get("/events/:id", authenticateToken, EventsController.show);
 router.post("/events", authenticateToken, authorizeRole("admin"),EventsController.create);
-router.post("/events/id", authenticateToken, authorizeRole("admin"), EventsController.update);
+router.post("/events/:id", authenticateToken, authorizeRole("admin"), EventsController.update);
 router.delete("/events/:id", authenticateToken, authorizeRole("admin"), EventsController.delete);
 
 router.get("/volunteers", authenticateToken, UsersController.index);
